@@ -193,6 +193,9 @@ class UssdController extends Controller
                         $response = "A name must contain at least two characters.". PHP_EOL;
                         $user->progress = $user->progress - 1;
                         $user->save();
+                    }else{
+                        $user->name = $message;
+                        $user->save();
                     }
                 }
             }
@@ -210,13 +213,18 @@ class UssdController extends Controller
                 $response = "Invalid Email".PHP_EOL;
                 $user->progress = $user->progress - 1;
                 $user->save();
+            }else{
+                $user->email = $message;
+                $user->save();
             }
         }
 
         if($user->menu_item_id == 3){
             //validate Chasis
             if(strlen($message)==14 || strlen($message)==17){
-            }else{
+                $user->chasis = $message;
+                $user->save();
+            }else{ 
                 $response = "Invalid Chasis".PHP_EOL;
                 $user->progress = $user->progress - 1;
                 $user->save();
